@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('bookingBasecamp', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->integer('No_Telp');
-            $table->string('password');
+            $table->foreignId('id_user');
+            $table->foreignId('id_basecamp');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_basecamp')->references('id')->on('basecamp');
+            $table->date('tglPendakian');
+            $table->string('basecampTujuan');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('bookingBasecamp');
     }
 };
